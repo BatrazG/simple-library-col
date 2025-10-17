@@ -24,4 +24,15 @@ func main() {
 	book1.ReturnBook()
 	fmt.Println(book1)
 	user1.AssignBook(&book1)
+
+	notifiers := []Notifier{}
+	emailNotifier := EmailNotifier{Email: "example@example.com"}
+	smsNotifier := SMSNotifier{PhoneNumber: "55555555555"}
+
+	notifiers = append(notifiers, emailNotifier)
+	notifiers = append(notifiers, smsNotifier)
+
+	for _, notify := range notifiers {
+		notify.Notify("Ваша книга просрочена")
+	}
 }

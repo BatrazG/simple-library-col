@@ -3,10 +3,10 @@ package main
 import "fmt"
 
 type Book struct {
-	ID int
-	Year int
-	Title string
-	Author string
+	ID       int
+	Year     int
+	Title    string
+	Author   string
 	IsIssued bool
 	ReaderId *int
 }
@@ -15,11 +15,11 @@ func (r Reader) DisplayReader() {
 	fmt.Printf("Читатель: %s %s (ID: %d)(Status: %v)\n", r.FirstName, r.LastName, r.ID, r.IsActive)
 }
 
- func (r *Reader) Deactivate(){
+func (r *Reader) Deactivate() {
 	r.IsActive = false
 }
 
-func (r Reader) String() string{
+func (r Reader) String() string {
 	status := ""
 	if r.IsActive {
 		status = "активен."
@@ -29,7 +29,7 @@ func (r Reader) String() string{
 	return fmt.Sprintf("Пользователь %s %s, ID: %d, пользователь %s", r.FirstName, r.LastName, r.ID, status)
 }
 
-func (b Book) String() string{
+func (b Book) String() string {
 	status := ""
 	if b.IsIssued {
 		status = "используется."
@@ -38,11 +38,11 @@ func (b Book) String() string{
 		status = "не используется."
 		return fmt.Sprintf("ID: %d, %s (%s %d), книга %s", b.ID, b.Title, b.Author, b.Year, status)
 	}
-	
+
 }
 
 func (b *Book) IssueBook(r *Reader) {
-	if b.IsIssued{
+	if b.IsIssued {
 		fmt.Println("Книга уже используется.")
 	} else {
 		b.IsIssued = true
@@ -52,7 +52,7 @@ func (b *Book) IssueBook(r *Reader) {
 }
 
 func (b *Book) ReturnBook() {
-	if !b.IsIssued{
+	if !b.IsIssued {
 		fmt.Println("Книга уже в библиотеке.")
 	} else {
 		b.IsIssued = false
@@ -70,4 +70,9 @@ type Reader struct {
 	FirstName string
 	LastName  string
 	IsActive  bool
+}
+
+type Library struct {
+	Books   []*Book
+	Readers []*Reader
 }
