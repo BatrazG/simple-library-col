@@ -3,20 +3,34 @@ package main
 import "fmt"
 
 func main() {
-	user1 := Reader{
-		ID:        1,
-		FirstName: "Агунда",
-		LastName:  "Кокойты",
-		IsActive:  true,
+	fmt.Println("Запуск системы управления библиотекой...")
+
+	myLibrary := &Library{}
+
+	fmt.Println("\n--- Наполняем библиотеку ---")
+	myLibrary.AddReader("Тамерлан", "Джигкаев")
+	myLibrary.AddReader("Линда", "Элбакянц")
+
+	myLibrary.AddBook(1984, "1984", "Джордж Оруэлл")
+	myLibrary.AddBook(1967, "Мастер и Маргарита", "Михаил Булгаков")
+
+	fmt.Println("\n--- Библиотека готова к работе ---")
+	fmt.Println("Количество читателей:", len(myLibrary.Readers))
+	fmt.Println("Количество книг:", len(myLibrary.Books))
+
+	fmt.Println("---Тестируем выдачу книг---")
+	//Выдаем книгу 1 читателю 1
+	err := myLibrary.IssueBookToReader(1, 1)
+	if err != nil {
+		fmt.Println("Ошибка выдачи", err)
 	}
 
-	book1 := Book{
-		ID:       1,
-		Year:     1867,
-		Title:    "Война и мир",
-		Author:   "Лев Толстой",
-		IsIssued: false,
+	//Проверить статус книги после выдачи
+	book, _ := myLibrary.FindBookById(1)
+	if book != nil {
+		fmt.Println("Статус книги после выдачи:", book)
 	}
+<<<<<<< HEAD
 	fmt.Println(user1)
 	fmt.Println(book1)
 	book1.IssueBook(&user1)
@@ -35,4 +49,13 @@ func main() {
 	for _, notify := range notifiers {
 		notify.Notify("Ваша книга просрочена")
 	}
+=======
+
+	//Попытка выдать несуществующую книгу
+	err = myLibrary.IssueBookToReader(99, 1)
+	if err != nil {
+		fmt.Println("Ожидаемая ошибка:", err)
+	}
+
+>>>>>>> upstream/main
 }
