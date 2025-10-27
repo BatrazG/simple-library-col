@@ -30,26 +30,6 @@ func main() {
 	if book != nil {
 		fmt.Println("Статус книги после выдачи:", book)
 	}
-<<<<<<< HEAD
-	fmt.Println(user1)
-	fmt.Println(book1)
-	book1.IssueBook(&user1)
-	fmt.Println(book1)
-	book1.ReturnBook()
-	fmt.Println(book1)
-	user1.AssignBook(&book1)
-
-	notifiers := []Notifier{}
-	emailNotifier := EmailNotifier{Email: "example@example.com"}
-	smsNotifier := SMSNotifier{PhoneNumber: "55555555555"}
-
-	notifiers = append(notifiers, emailNotifier)
-	notifiers = append(notifiers, smsNotifier)
-
-	for _, notify := range notifiers {
-		notify.Notify("Ваша книга просрочена")
-	}
-=======
 
 	//Попытка выдать несуществующую книгу
 	err = myLibrary.IssueBookToReader(99, 1)
@@ -57,5 +37,27 @@ func main() {
 		fmt.Println("Ожидаемая ошибка:", err)
 	}
 
->>>>>>> upstream/main
+	//Тест config.go
+	config1 := map[string]string{
+		"PORT": "456",
+	}
+
+	port, err := GetPortFromConfig(config1)
+	if err != nil {
+		fmt.Println("Произошла ошибка чтения порта:", err)
+	} else {
+		fmt.Println("Порт №", port)
+	}
+
+	fmt.Println("---")
+	config2 := map[string]string{
+		"PORTT": "456",
+	}
+
+	port, err = GetPortFromConfig(config2)
+	if err != nil {
+		fmt.Println("Произошла ошибка чтения порта:", err)
+	} else {
+		fmt.Println("Порт №", port)
+	}
 }
