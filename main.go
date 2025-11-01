@@ -1,11 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/Standartenfuhrer/library"
+)
 
 func main() {
 	fmt.Println("Запуск системы управления библиотекой...")
 
-	myLibrary := &Library{}
+	myLibrary := &library.Library{}
 
 	fmt.Println("\n--- Наполняем библиотеку ---")
 	myLibrary.AddReader("Тамерлан", "Джигкаев")
