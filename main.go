@@ -2,14 +2,12 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/Standartenfuhrer/library"
 )
 
 func main() {
 	fmt.Println("Запуск системы управления библиотекой...")
 
-	myLibrary := &library.Library{}
+	myLibrary := &Library{}
 
 	fmt.Println("\n--- Наполняем библиотеку ---")
 	myLibrary.AddReader("Тамерлан", "Джигкаев")
@@ -26,42 +24,23 @@ func main() {
 	//Выдаем книгу 1 читателю 1
 	err := myLibrary.IssueBookToReader(1, 1)
 	if err != nil {
-		fmt.Println("Ошибка выдачи", err)
-	}
-
-	//Проверить статус книги после выдачи
-	book, _ := myLibrary.FindBookById(1)
-	if book != nil {
-		fmt.Println("Статус книги после выдачи:", book)
-	}
-
-	//Попытка выдать несуществующую книгу
-	err = myLibrary.IssueBookToReader(99, 1)
-	if err != nil {
-		fmt.Println("Ожидаемая ошибка:", err)
-	}
-
-	//Тест config.go
-	config1 := map[string]string{
-		"PORT": "456",
-	}
-
-	port, err := GetPortFromConfig(config1)
-	if err != nil {
-		fmt.Println("Произошла ошибка чтения порта:", err)
+		fmt.Println(err)
 	} else {
-		fmt.Println("Порт №", port)
+		fmt.Println("Зарегестрирован новый читатель:", reader)
 	}
 
-	fmt.Println("---")
-	config2 := map[string]string{
-		"PORTT": "456",
-	}
-
-	port, err = GetPortFromConfig(config2)
+	book, err = myLibrary.AddBook(1833, "Егвений Онегин", "Александр Пушкин")
 	if err != nil {
-		fmt.Println("Произошла ошибка чтения порта:", err)
+		fmt.Println(err)
 	} else {
-		fmt.Println("Порт №", port)
+		fmt.Printf("Книга (%v) успешно добавлена\n", book.Title)
 	}
+
+	err = myLibrary.IssueBookToReader(1, 1)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(myLibrary.Books[0])
+	}
+
 }
